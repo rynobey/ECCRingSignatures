@@ -67,6 +67,10 @@ function ring(newSharedPrivKey) {
 
   // Takes as input two key pairs
   function addBToA(a, b) {
+    console.log("LOGGING A AND B:")
+    console.log(a)
+    console.log(b)
+    console.log(a.getPublic().add(b.getPublic()))
     return ec.keyFromPublic(a.getPublic().add(b.getPublic()));
   }
 
@@ -83,8 +87,13 @@ function ring(newSharedPrivKey) {
     v[(z+1)%k.length] = E(u[z], m);
     for (let i = (z+1); i < (z+k.length); i++) {
       let index = i % k.length;
-      sTemp = ec.keyFromPrivate(new bn(object.r.generate(32, 'hex'), 16));
+      //sTemp = ec.keyFromPrivate(new bn(object.r.generate(32, 'hex'), 16));
+      sTemp = ec.keyFromPrivate(new bn('0e68c8f68ec6a780bacc80c136135353693e2b97ba5aa20c3f85ecba3e948270', 16));
       s[index+1] = ec.keyFromPublic(sTemp.getPublic());
+      console.log("CALLING f WITH PARAMS:");
+      console.log("PARAM1 = ", s[index+1]);
+      console.log("PARAM2 = ", k[index].getPublic());
+      console.log("PARAM3 = ", object.sharedKeyPair.getPrivate());
       y[index] = f(s[index+1], k[index].getPublic(), object.sharedKeyPair.getPrivate());
       u[index] = addBToA(v[index], y[index]);
       v[(index+1)%k.length] = E(u[index], m);
@@ -138,7 +147,7 @@ function ring(newSharedPrivKey) {
     let s = sign(keyPairs1, msg1, 0);
     console.log(verify(keyPairs2, msg2, s));
   }
-  
+  object.F = f; 
   object.Sign = sign;
   object.Verify = verify;
   object.Test1 = test1;
