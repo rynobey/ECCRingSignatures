@@ -1,0 +1,19 @@
+{
+  "name": "eccringsignatures",
+  "version": "1.0.0",
+  "description": "Elliptic curve ring signatures for experimentation - most likely not secure at all!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryno Beyers",
+  "license": "MIT",
+  "dependencies": {
+    "bn": "^1.0.1",
+    "crypto": "^1.0.1",
+    "elliptic": "^6.4.0",
+    "hash-js": "^1.0.3",
+    "hmac-drbg": "^1.0.1",
+    "random-int": "^1.0.0"
+  }
+}
