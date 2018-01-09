@@ -1,4 +1,4 @@
-function ring() {
+function ring(newSharedPrivKey) {
   let object = {};
   
   let bn = require('bn.js');
@@ -19,6 +19,7 @@ function ring() {
 
   // Initialization of shared key for trapdoor
   let sharedPrivKey = new bn(object.r.generate(32, 'hex'), 16);
+  if (newSharedPrivKey) { sharedPrivKey = newSharedPrivKey }
   object.sharedKeyPair = ec.keyFromPrivate(sharedPrivKey);
 
   // Trapdoor function - easy in one direction, very hard in other, unless private key is known
